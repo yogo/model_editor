@@ -31,5 +31,13 @@ ModelEditor.ModelDefinition.FIXTURES = [
   // { guid: 5,
   //   firstName: "Ryan",
   //   lastName: "Howard" }
+  
+  { guid: 1,
+    name: "Cercal Cell",
+    properties: [
+      {type: "Text", name:"Cell Name"},
+      {type: "Text", name:"Hair Length"}
+    ]
+    }
 
 ];
