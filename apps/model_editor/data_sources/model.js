@@ -4,6 +4,11 @@
 // ==========================================================================
 /*globals ModelEditor */
 
+sc_require('models/model_definition');
+ModelEditor.MODELS_QUERY = SC.Query.local(ModelEditor.ModelDefinition, {
+  orderBy: 'name'
+});
+
 /** @class
 
   (Document Your Data Source Here)
@@ -12,17 +17,34 @@
 */
 ModelEditor.ModelDataSource = SC.DataSource.extend(
 /** @scope ModelEditor.ModelDataSource.prototype */ {
-
+  
   // ..........................................................
   // QUERY SUPPORT
   // 
 
   fetch: function(store, query) {
-
-    // TODO: Add handlers to fetch data for specific queries.  
-    // call store.dataSourceDidFetchQuery(query) when done.
+    var modelsURL = ModelEditor.getPath('yogoConfig.modelsURL');
+    if(query === ModelEditor.MODELS_QUERY) {
+      var request =SC.Request.getUrl(modelsURL)
+        .notify(this, 'didFetchModels', store, query);
+      request.header('Accept', "application/json");
+      request.json();
+      request.send()
+      return YES;
+    }
 
     return NO ; // return YES if you handled the query
+  },
+  
+  didFetchModels: function(response, store, query) {
+    if(SC.ok(response)) {
+      console.debug(response.get('body'));
+      store.loadRecords(ModelEditor.ModelDefinition, response.get('body').models);
+      store.dataSourceDidFetchQuery(query);
+    }
+    else {
+      store.dataSourceDidErrorQuery(query, response);
+    }
   },
 
   // ..........................................................
