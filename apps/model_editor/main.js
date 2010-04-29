@@ -24,7 +24,7 @@ ModelEditor.main = function main() {
 
   // TODO: Set the content property on your primary controller
   // ex: ModelEditor.contactsController.set('content',ModelEditor.contacts);
-  var modelDefinitions = ModelEditor.store.find(ModelEditor.ModelDefinition);
+  var modelDefinitions = ModelEditor.store.find(ModelEditor.MODELS_QUERY);
   ModelEditor.modelDefinitionsController.set('content', modelDefinitions);
   
   //ModelEditor.propertyPaletteController.set('content', ModelEditor.BasicPropertyTypes);
