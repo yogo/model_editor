@@ -35,9 +35,7 @@ ModelEditor.mainPage = SC.Page.design({
           hasContentIcon: YES,
           contentIconKey: "icon",
           contentUnreadCountKey: "propertyCount",
-          actOnSelect: NO,
-          target: "ModelEditor.modelDefinitionController",
-          action: "editModelName"
+          actOnSelect: NO
         })
       }),
       
@@ -52,7 +50,7 @@ ModelEditor.mainPage = SC.Page.design({
           titleMinWidth:15,
           controlSize: SC.SMALL_CONTROL_SIZE,
           target:"ModelEditor.modelDefinitionsController",
-          action:"addModel",
+          action:"showCreateModelView",
           isEnabledBinding:"ModelEditor.modelDefinitionsController.canAddContent"
         }),
         modelDeleteButton: SC.ButtonView.design({
