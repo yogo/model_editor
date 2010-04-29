@@ -12,29 +12,45 @@
 */
 ModelEditor.modelDefinitionsController = SC.ArrayController.create(
 /** @scope ModelEditor.modelDefinitionsController.prototype */ {
-
+  
   allowsMultipleSelection: NO,
   orderBy:"name",
   newModelCount: 1,
-  addModel: function() {
-    var count = this.get('newModelCount');
-    var modelDef = ModelEditor.store.createRecord(ModelEditor.ModelDefinition, {
-      name:"New Model " + count
+  newModelName: "",
+  
+  
+  showCreateModelView: function(sender) {
+    // Prompt for Model Name
+    var addPanel = ModelEditor.CreateModelPane.create({
+      layout: {width:400, height:75, centerX:0, centerY:0},
     });
-    this.selectObject(modelDef);
-    this.set('newModelCount', count + 1);
+    addPanel.append();
+  },
+  
+  createModel: function(sender) {
+    var modelName = this.get('newModelName');
+    this.set('newModelName', "");
     
-    this.invokeLater(function() {
-      var contentIndex = this.indexOf(modelDef);
-      SC.Logger.debug(contentIndex);
-      var modelList = ModelEditor.mainPage.getPath("mainPane.sideView.modelListView.contentView");
-      SC.Logger.debug(modelList);
-      var listItem = modelList.itemViewForContentIndex(contentIndex);
-      SC.Logger.debug(listItem);
-      //SC.Logger.debug(listItem.beginEditing());
-      ModelEditor.modelDefinitionController.editModelName();
-    });
-    return YES;
+    if(modelName.length === 0) return;
+    
+    try {
+      var modelDef = ModelEditor.store.createRecord(ModelEditor.ModelDefinition, {
+        guid: modelName.classify(),
+        properties: []
+      });
+      
+      var senderPane = sender.get('pane');
+      senderPane && senderPane.remove();
+    }
+    catch(e) {
+      alert("Duplication model name: " + modelName);
+    }
+  },
+  
+  cancelCreateModel: function(sender) {
+    var senderPane = sender.get('pane');
+    senderPane && senderPane.remove();
+    this.set('newModelName', "");
   }
 
 }) ;
