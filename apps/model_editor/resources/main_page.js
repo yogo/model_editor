@@ -40,7 +40,7 @@ ModelEditor.mainPage = SC.Page.design({
       }),
       
       toolbarView: SC.ToolbarView.design({
-        childViews: 'modelAddButton modelDeleteButton'.w(),
+        childViews: 'modelAddButton modelDeleteButton saveButton'.w(),
         layout: { bottom:0, left:0, right:0, height:20 },
         anchorLocation: SC.ANCHOR_BOTTOM,
 
@@ -61,6 +61,17 @@ ModelEditor.mainPage = SC.Page.design({
           target:"ModelEditor.modelDefinitionController",
           action:"deleteModel",
           isEnabledBinding:"ModelEditor.modelDefinitionController.hasContent"
+        }),
+        
+        saveButton: SC.ButtonView.design({
+          layout: {top:0, bottom:0, right:10, width:30},
+          title:"Save",
+          titleMinWidth:15,
+          controlSize: SC.SMALL_CONTROL_SIZE,
+          //isEnabledBinding: "ModelEditor.store.changelog",
+          //isEnabledBindingDefault: SC.Binding.bool(),
+          target:"ModelEditor.modelDefinitionsController",
+          action: "saveModels"
         })
       })
     }),
