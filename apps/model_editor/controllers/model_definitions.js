@@ -51,6 +51,14 @@ ModelEditor.modelDefinitionsController = SC.ArrayController.create(
     var senderPane = sender.get('pane');
     senderPane && senderPane.remove();
     this.set('newModelName', "");
+  },
+  
+  saveModels: function(sender) {
+    console.debug("Saving to server...");
+    //ModelEditor.get('bufferedStore').commitChanges();
+    // ModelEditor.store.commitRecords(ModelEditor.ModelDefinition);
+    //     ModelEditor.store.commitRecords(ModelEditor.ModelProperty);
+    ModelEditor.store.commitRecords();
   }
 
 }) ;
