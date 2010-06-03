@@ -43,6 +43,15 @@ ModelEditor.READY = SC.Responder.create(
     return NO;
   },
   
+  addModel: function(sender) {
+    var addPanel = ModelEditor.CreateModelPane.create({
+      layout: {width:400, height:75, centerX:0, centerY:0},
+    });
+    addPanel.append();
+    
+    return YES;
+  },
+  
   // add event handlers here
   currentModelDidChange: function() {
     SC.Logger.info("currentModelDidChange");
