@@ -23,9 +23,11 @@ ModelEditor.ModelDataSource = SC.DataSource.extend(
   // 
 
   fetch: function(store, query) {
-    var modelsURL = ModelEditor.getPath('yogoConfig.modelsURL');
+    var modelsUrl = ModelEditor.getPath('yogoConfig.modelsURL');
+    if(!modelsUrl) return NO;
+    
     if(query === ModelEditor.MODELS_QUERY) {
-      var request =SC.Request.getUrl(modelsURL)
+      var request = SC.Request.getUrl(modelsUrl)
         .notify(this, 'didFetchModels', store, query);
       request.header('Accept', "application/json");
       request.json();
@@ -51,10 +53,12 @@ ModelEditor.ModelDataSource = SC.DataSource.extend(
   // 
   
   retrieveRecord: function(store, storeKey) {
+    var modelsUrl = ModelEditor.getPath('yogoConfig.modelsURL');
+    if(!modelsUrl) return NO;
     
     if(SC.kindOf(store.recordTypeFor(storeKey), ModelEditor.ModelDefinition)) {
       var modelId = store.idFor(storeKey);
-      var modelUrl = ModelEditor.getPath('yogoConfig.modelsURL') + '/' + modelId;
+      var modelUrl = modelsUrl + '/' + modelId;
       
       var request = SC.Request.getUrl(url);
       request.header("Accept","application/json");
@@ -79,8 +83,10 @@ ModelEditor.ModelDataSource = SC.DataSource.extend(
   
   createRecord: function(store, storeKey) {
     
+    var modelsUrl = ModelEditor.getPath('yogoConfig.modelsURL');
+    if(!modelsUrl) return NO;
+    
     if(SC.kindOf(store.recordTypeFor(storeKey), ModelEditor.ModelDefinition)) {
-      var modelsUrl = ModelEditor.getPath('yogoConfig.modelsURL');
       var request = SC.Request.postUrl(modelsUrl);
       request.header('Content-Type','application/json');
       request.header('Accept', 'application/json')
@@ -106,10 +112,12 @@ ModelEditor.ModelDataSource = SC.DataSource.extend(
   },
   
   updateRecord: function(store, storeKey) {
+    var modelsUrl = ModelEditor.getPath('yogoConfig.modelsURL');
+    if(!modelsUrl) return NO;
     
     if(SC.kindOf(store.recordTypeFor(storeKey), ModelEditor.ModelDefinition)) {
       var modelId = store.idFor(storeKey);
-      var modelUrl = ModelEditor.getPath('yogoConfig.modelsURL') + '/' + modelId;
+      var modelUrl = modelsUrl + '/' + modelId;
       
       var request = SC.Request.putUrl(modelUrl);
       request.json();
@@ -135,10 +143,12 @@ ModelEditor.ModelDataSource = SC.DataSource.extend(
   },
   
   destroyRecord: function(store, storeKey) {
+    var modelsUrl = ModelEditor.getPath('yogoConfig.modelsURL');
+    if(!modelsUrl) return NO;
     
     if(SC.kindOf(store.recordTypeFor(storeKey), ModelEditor.ModelDefinition)) {
       var modelId = store.idFor(storeKey);
-      var modelUrl = ModelEditor.getPath('yogoConfig.modelsURL') + '/' + modelId;
+      var modelUrl = modelsUrl + '/' + modelId;
       
       var request = SC.Request.deleteUrl(modelUrl);
       request.json();

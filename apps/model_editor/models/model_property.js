@@ -11,54 +11,58 @@
   @extends SC.Record
   @version 0.1
 */
-
+ModelEditor.PropertyType = SC.Object.extend({
+  type: "Text",
+  icon:static_url('icons/icon-text-16'),
+  options:{}
+});
 ModelEditor.BasicPropertyConfig = SC.Object.create({
-  "Text":     SC.Object.create({
+  "Text":     ModelEditor.PropertyType.create({
                   type: "Text",
                   icon:static_url('icons/icon-text-16'),
                   options:{}
               }),
-  "Decimal":  SC.Object.create({
+  "Decimal":  ModelEditor.PropertyType.create({
                   type: "Decimal",
                   icon:static_url('icons/icon-number-16'),
                   options:{}
               }),
-  "Integer":  SC.Object.create({
+  "Integer":  ModelEditor.PropertyType.create({
                   type: "Integer",
                   icon:static_url('icons/icon-number-16'),
                   options:{}
               }),
-  "TrueFalse":SC.Object.create({
+  "TrueFalse":ModelEditor.PropertyType.create({
                   type: "TrueFalse",
                   icon:static_url('icons/icon-true_false-16'),
                   options:{}
               }),
-  "Date":     SC.Object.create({
+  "Date":     ModelEditor.PropertyType.create({
                   type: "Date",
                   icon:static_url('icons/icon-date-16'),
                   options:{}
               }),
-  "Time":     SC.Object.create({
+  "Time":     ModelEditor.PropertyType.create({
                   type: "Time",
                   icon:static_url('icons/icon-time-16'),
                   options:{}
               }),
-  "DateTime": SC.Object.create({
+  "DateTime": ModelEditor.PropertyType.create({
                   type: "DateTime",
                   icon:static_url('icons/icon-date_time-16'),
                   options:{}
               }),
-  "File":     SC.Object.create({
+  "File":     ModelEditor.PropertyType.create({
                   type: "File",
                   icon:static_url('icons/icon-file-16'),
                   options:{}
               }),
-  "Image":    SC.Object.create({
+  "Image":    ModelEditor.PropertyType.create({
                   type: "Image",
                   icon:static_url('icons/icon-image-16'),
                   options:{}
               }),
-  "RecordLink":SC.Object.create({
+  "RecordLink":ModelEditor.PropertyType.create({
                   type: "RecordLink",
                   icon:static_url('icons/icon-record_link-16'),
                   options:{ targetRecord:"", multiple:false }

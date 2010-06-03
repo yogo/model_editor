@@ -72,7 +72,16 @@ ModelEditor.modelPropertiesController = SC.ArrayController.create(
     return SC.DRAG_MOVE;
   },
   
-  collectionViewPerformDragOperation: function(view, drag, drapOp, idx, dropOp) {
+  // collectionViewValidateDragOperation: function(view, drag, dragOp, idx, dropOp) {
+  //   if(view.kindOf(SC.TableView)) {
+  //     SC.Logger.debug("Handling for TableView");
+  //     view.set('proposedInsertionIndex', idx+1); // Need to account for the header row
+  //     view.set('proposedDropOperation', SC.DROP_BEFORE);
+  //   }
+  //   return dragOp;
+  // },
+  
+  collectionViewPerformDragOperation: function(view, drag, dragOp, idx, dropOp) {
     var propertyType  = drag.dataForType(ModelEditor.PropertyType),
         content       = view.get('content'),
         len           = view.get('length'),
@@ -82,11 +91,13 @@ ModelEditor.modelPropertiesController = SC.ArrayController.create(
     SC.Logger.debug("Property List is recieving a drop!");
     SC.Logger.debug(propertyType);
     SC.Logger.debug(source.get('dragContent'));
+    SC.Logger.debug(arguments);
+    
     
     if (!propertyType) return ret;
     
     if(dropOp & SC.DROP_AFTER) idx++;
-    //     if(idx>len) idx = len;
+    if(idx>len) idx = len;
     content.replace(idx, 0, propertyType);
     
     view.select(SC.IndexSet.create(idx, 1));

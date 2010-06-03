@@ -22,20 +22,44 @@ ModelEditor = SC.Application.create(
   // to any fixtures you define.
   //store: SC.Store.create().from(SC.Record.fixtures)
   
-  store: SC.Store.create({
-    commitRecordsAutomatically: NO
+  coreStore: SC.Store.create({
+    commitRecordsAutomatically: YES
   }).from('ModelEditor.ModelDataSource'),
   
-  bufferedStore: function() {
-    return this.store.chain();
-  }.property('store').cacheable(),
+  store: function(){
+    return this.coreStore.chain();
+  }.property('coreStore').cacheable(),
+  
+  models: function(){
+    //if(!this.get('yogoConfig.modelsURL')) return null;
+    return this.get('store').find(ModelEditor.MODELS_QUERY);
+  }.property('store','yogoConfig.modelsURL').cacheable(),
   
   // TODO: Add global constants or singleton objects needed by your app here.
   yogoConfig: SC.Object.create({
-    baseURL: "/projects",
-    projectId: "1",
+    baseURL: null,
+    projectId: null,
     modelsURL: function() {
+      if(!this.get('baseURL') || !this.get('projectId')) return null;
       return this.get('baseURL') + '/' + this.get('projectId') + '/yogo_models'
     }.property('baseURL', 'projectId').cacheable(),
-  })
+  }),
+  
+  currentScene: null,
+  modelDetailView: null,
+  
+  dataShouldBeReloaded: function() {
+    this.get('store').reset();
+    this.get('models').refresh();
+  },
+  
+  changesShouldBeSaved: function() {
+    ModelEditor.get('store').commitChanges(true);
+    ModelEditor.get('store').reset();
+    ModelEditor.get('coreStore').commitRecords();
+  },
+  
+  changesShouldBeDiscarded: function() {
+    ModelEditor.get('store').discardChanges();
+  }
 }) ;

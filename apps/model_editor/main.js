@@ -18,17 +18,32 @@ ModelEditor.main = function main() {
   // on screen.  If you app gets any level of complexity, you will probably 
   // create multiple pages and panes.  
   ModelEditor.getPath('mainPage.mainPane').append() ;
-
+  
   // Step 2. Set the content property on your primary controller.
   // This will make your app come alive!
 
   // TODO: Set the content property on your primary controller
   // ex: ModelEditor.contactsController.set('content',ModelEditor.contacts);
-  var modelDefinitions = ModelEditor.store.find(ModelEditor.MODELS_QUERY);
-  ModelEditor.modelDefinitionsController.set('content', modelDefinitions);
+  if(window.self !== window.top) {
+    // We're embedded in an iframe, and should wait for 
+    // the parent page to set the datastore url configs
+    // and invoke the ModelEditor.mainDataLoad();
+  }
+  else {
+    // We're running in standalone development mode!
+    ModelEditor.mainDataLoad('/projects', '1');
+  }
+  
   
   //ModelEditor.propertyPaletteController.set('content', ModelEditor.BasicPropertyTypes);
 
 } ;
+
+ModelEditor.mainDataLoad = function(baseUrl, projectId) {
+  ModelEditor.yogoConfig.set('baseURL', baseUrl);
+  ModelEditor.yogoConfig.set('projectId', projectId);
+  //ModelEditor.modelDefinitionsController.reload();
+  ModelEditor.makeFirstResponder(ModelEditor.START);
+};
 
 function main() { ModelEditor.main(); }

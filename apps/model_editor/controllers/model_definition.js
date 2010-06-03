@@ -12,10 +12,14 @@
 */
 ModelEditor.modelDefinitionController = SC.ObjectController.create(
 /** @scope ModelEditor.modelDefinitionController.prototype */ {
-
-  contentBinding: "ModelEditor.modelDefinitionsController.selection",
+  
+  contentBinding: 'ModelEditor.modelDefinitionsController.selection',
   contentBindingDefault: SC.Binding.single(),
   
+  _currentModelDidChange: function() {
+    ModelEditor.sendAction('currentModelDidChange');
+  }.observes('content'),
+    
   editModelName: function(sender) {
     var model = this.get('content');
 
