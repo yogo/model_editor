@@ -34,6 +34,14 @@ ModelEditor.EDIT = SC.Responder.create(
   // EVENTS
   //
   
+  showPropertyPalette: function(sender, args) {
+    SC.PickerPane.create({
+      layout: { width:200, height:300 },
+      contentView: ModelEditor.PropertyPalette,
+    }).popup(sender /*, SC.PICKER_POINTER, [3,0,1,2,3]*/);
+    return YES;
+  },
+  
   // add event handlers here
   currentModelDidChange: function() {
     SC.Logger.info("currentModelDidChange");
