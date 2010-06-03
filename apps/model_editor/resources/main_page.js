@@ -13,33 +13,10 @@ ModelEditor.mainPage = SC.Page.design({
   mainPane: SC.MainPane.design({
     defaultResponder: ModelEditor,
     
-    childViews: 'topBarView mainView'.w(),
-    
-    topBarView: SC.ToolbarView.design({
-      childViews: 'saveButton discardButton'.w(),
-      layout: { top:0, left:0, right:0, height:40 },
-      anchorLocation: SC.ANCHOR_TOP,
-      
-      saveButton: SC.ButtonView.design({
-        layout: {left:10, width:100, centerY:0, height:25},
-        title:"Save Models",
-        titleMinWidth:15,
-        isEnabledBinding: "ModelEditor.store.hasChanges",
-        action: 'changesShouldBeSaved'
-      }),
-      
-      discardButton: SC.ButtonView.design({
-        layout: {left:120, width:150, centerY:0, height:25},
-        title:"Discard Changes",
-        titleMinWidth:15,
-        isEnabledBinding: "ModelEditor.store.hasChanges",
-        action: "changesShouldBeDiscarded"
-      })
-      
-    }),
+    childViews: 'mainView'.w(),
     
     mainView: SC.ContainerView.design({
-      layout: {left:0, right:0, top:40, bottom:0},
+      // layout: {left:0, right:0, top:40, bottom:0},
       nowShowingBinding: 'ModelEditor.currentScene'
     }),
   }),
