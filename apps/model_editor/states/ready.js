@@ -18,14 +18,15 @@ ModelEditor.READY = SC.Responder.create(
     The next state to check if this state does not implement the action.
   */
   nextResponder: null,
-  nextKeyView: 'ModelEditor.currentScene',
   
   didBecomeFirstResponder: function() {
     ModelEditor.set('currentScene', 'ModelEditor.modelBrowser.mainView');
+    ModelEditor.set('modelDetailView', 'ModelEditor.modelBrowser.browserWelcomeView');
   },
   
   willLoseFirstResponder: function() {
     ModelEditor.set('currentScene', null);
+    ModelEditor.set('modelDetailView', null);
   },
   
   // ..........................................................
