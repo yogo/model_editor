@@ -23,11 +23,11 @@ ModelEditor = SC.Application.create(
   //store: SC.Store.create().from(SC.Record.fixtures)
   
   coreStore: SC.Store.create({
-    commitRecordsAutomatically: YES
+    commitRecordsAutomatically: NO
   }).from('ModelEditor.ModelDataSource'),
   
   store: function(){
-    return this.coreStore.chain();
+    return this.coreStore;
   }.property('coreStore').cacheable(),
   
   models: function(){
@@ -51,15 +51,20 @@ ModelEditor = SC.Application.create(
   dataShouldBeReloaded: function() {
     this.get('store').reset();
     this.get('models').refresh();
+    return YES;
   },
   
   changesShouldBeSaved: function() {
-    ModelEditor.get('store').commitChanges(true);
-    ModelEditor.get('store').reset();
+    SC.Logger.info('changesShouldBeSaved');
+    //ModelEditor.get('store').commitChanges();
+    //ModelEditor.get('store').reset();
     ModelEditor.get('coreStore').commitRecords();
+    return YES;
   },
   
   changesShouldBeDiscarded: function() {
+    SC.Logger.info('changesShouldBeDiscarded');
     ModelEditor.get('store').discardChanges();
+    return YES;
   }
 }) ;
