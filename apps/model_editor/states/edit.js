@@ -41,6 +41,9 @@ ModelEditor.EDIT = SC.Responder.create(
       ModelEditor.makeFirstResponder(ModelEditor.READY);
       return YES;
     }
+    else {
+      return YES; // stay in edit state
+    }
     return NO;
   }
   
