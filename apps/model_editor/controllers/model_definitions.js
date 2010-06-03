@@ -41,7 +41,7 @@ ModelEditor.modelDefinitionsController = SC.ArrayController.create(
     if(modelName.length === 0) return;
     
     try {
-      var modelDef = ModelEditor.store.createRecord(ModelEditor.ModelDefinition, {
+      var modelDef = ModelEditor.get('store').createRecord(ModelEditor.ModelDefinition, {
         guid: modelName.classify(),
         properties: []
       });
