@@ -22,14 +22,23 @@ ModelEditor.ModelDefinition = SC.Record.extend(
     return id.humanize().titleize();
   }.property('id').cacheable(),
   
-  //icon: "sc-icon-folder-16",
   icon: function() {
+    var redIcon = static_url('icon-bullet_red-16'),
+        greenIcon = static_url('icon-bullet_green-16'),
+        orangeIcon = static_url('icon-bullet_orange-16'),
+        errorIcon = static_url('icon-bullet_error-16');
+        
     var status = this.get('status');
-    if((status & SC.Record.CLEAN)) return static_url('icon-bullet_green-16');
-    if((status & SC.Record.BUSY)) return static_url('icon-bullet_orange-16');
-    if((status & SC.Record.DIRTY)) return static_url('icon-bullet_red-16');
-    if((status & SC.Record.ERROR)) return static_url('icon-bullet_error-16');
-    return static_url('icon-bullet_black-16');
+    
+    if(status & SC.Record.READY) {
+      if(status === SC.Record.READY_NEW) return redIcon;
+      if(status === SC.Record.READY_DIRTY) return redIcon;
+      if(status === SC.Record.READY_CLEAN) return greenIcon;
+    }
+    if((status & SC.Record.BUSY)) return orangeIcon;
+    
+    if((status & SC.Record.ERROR)) return errorIcon;
+    return errorIcon;
   }.property('status').cacheable(),
   
   propertyCount: function() {
