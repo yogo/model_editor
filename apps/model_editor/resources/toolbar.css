@@ -1,0 +1,5 @@
+.thumb-view {
+  background-image:static_url('resize_thumb-16.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+}
