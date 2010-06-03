@@ -3,6 +3,7 @@
 // Copyright: ©2010 My Company, Inc.
 // ==========================================================================
 /*globals ModelEditor */
+sc_require('states/models.js');
 
 /** @class
 
@@ -17,7 +18,7 @@ ModelEditor.READY = SC.Responder.create(
   /**
     The next state to check if this state does not implement the action.
   */
-  nextResponder: null,
+  nextResponder: ModelEditor.MODELS,
   
   didBecomeFirstResponder: function() {
     SC.Logger.info("-> READY");
@@ -35,6 +36,7 @@ ModelEditor.READY = SC.Responder.create(
   // EVENTS
   //
   
+  
   keyDown: function(sender, evt) {
     SC.Logger.info(evt);
     if(evt.ctrlKey) {
@@ -46,14 +48,6 @@ ModelEditor.READY = SC.Responder.create(
     return NO;
   },
   
-  addModel: function(sender) {
-    var addPanel = ModelEditor.CreateModelPane.create({
-      layout: {width:400, height:75, centerX:0, centerY:0},
-    });
-    addPanel.append();
-    
-    return YES;
-  },
   
   // add event handlers here
   currentModelDidChange: function() {
@@ -62,7 +56,10 @@ ModelEditor.READY = SC.Responder.create(
       ModelEditor.makeFirstResponder(ModelEditor.EDIT);
       return YES;
     }
-    return NO;
+    else {
+      ModelEditor.makeFirstResponder(this);
+      return YES; // stay in ready state
+    }
   }
   
 }) ;

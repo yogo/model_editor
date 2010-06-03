@@ -3,6 +3,7 @@
 // Copyright: ©2010 My Company, Inc.
 // ==========================================================================
 /*globals ModelEditor */
+sc_require('states/models.js');
 
 /** @class
 
@@ -17,7 +18,7 @@ ModelEditor.EDIT = SC.Responder.create(
   /**
     The next state to check if this state does not implement the action.
   */
-  nextResponder: ModelEditor.READY,
+  nextResponder: ModelEditor.MODELS,
   
   didBecomeFirstResponder: function() {
     SC.Logger.info("-> EDIT");
@@ -35,6 +36,7 @@ ModelEditor.EDIT = SC.Responder.create(
   // ..........................................................
   // EVENTS
   //
+  
   
   showPropertyPalette: function(sender, args) {
     SC.PickerPane.create({
