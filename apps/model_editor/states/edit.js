@@ -20,12 +20,14 @@ ModelEditor.EDIT = SC.Responder.create(
   nextResponder: ModelEditor.READY,
   
   didBecomeFirstResponder: function() {
+    SC.Logger.info("-> EDIT");
     ModelEditor.set('currentScene', 'ModelEditor.modelBrowser.mainView');
     ModelEditor.set('modelDetailView', 'ModelEditor.propertyBrowser.mainView');
     // ModelEditor.set('currentToolbarView', 'ModelEditor.propertyBrowser.propertyToolbar');
   },
   
   willLoseFirstResponder: function() {
+    SC.Logger.info("EDIT ->");
     ModelEditor.set('currentScene', null);
     ModelEditor.set('modelDetailView', null);
   },
@@ -44,7 +46,7 @@ ModelEditor.EDIT = SC.Responder.create(
   
   // add event handlers here
   currentModelDidChange: function() {
-    SC.Logger.info("currentModelDidChange");
+    SC.Logger.info("EDIT: currentModelDidChange");
     if(!ModelEditor.getPath('modelDefinitionController.content')) {
       ModelEditor.makeFirstResponder(ModelEditor.READY);
       return YES;
@@ -52,7 +54,6 @@ ModelEditor.EDIT = SC.Responder.create(
     else {
       return YES; // stay in edit state
     }
-    return NO;
   }
   
 }) ;

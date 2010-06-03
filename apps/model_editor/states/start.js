@@ -20,11 +20,13 @@ ModelEditor.START = SC.Responder.create(
   nextResponder: null,
   
   didBecomeFirstResponder: function() {
+    SC.Logger.info("-> START");
     ModelEditor.set('currentScene', 'modelsLoading');
     ModelEditor.sendAction('dataShouldBeReloaded');
   },
   
   willLoseFirstResponder: function() {
+    SC.Logger.info("START ->");
     ModelEditor.set('currentScene', null);
   },
   
