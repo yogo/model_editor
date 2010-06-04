@@ -46,4 +46,12 @@ ModelEditor.MODELS = SC.Responder.create(
     return YES;
   },
   
+  modelsDidChange: function() {
+    if(status & SC.Record.ERROR) {
+      ModelEditor.makeFirstResponder(ModelEditor.ERROR);
+      return YES;
+    }
+    return NO;
+  }
+  
 }) ;
