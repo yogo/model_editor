@@ -21,7 +21,6 @@ ModelEditor.modelBrowser = SC.Page.design({
         icon: static_url('icons/icon-folder_go-16.png'),
         title:"Save Models",
         titleMinWidth:15,
-        isEnabledBinding: "ModelEditor.store.hasChanges",
         action: 'changesShouldBeSaved'
       }),
       
@@ -60,21 +59,23 @@ ModelEditor.modelBrowser = SC.Page.design({
             childViews: "addButton removeButton resizeThumb".w(),
           
             addButton: SC.ButtonView.design({
-              layout: {left:0, top:0, bottom:0, width:36},
+              layout: {left:0, top:0, bottom:0, width:25},
+              classNames: "toolbar-button-small".w(),
               titleMinWidth:0,
-              //controlSize: SC.SMALL_CONTROL_SIZE,
-              //title: "+",
-              icon: static_url('icons/icon-add-16.png'),
+              controlSize: SC.SMALL_CONTROL_SIZE,
+              title: "+",
+              //icon: static_url('icons/icon-add-16.png'),
               action: "addModel",
               keyEquivalent: "CTRL+n"
             }),
           
             removeButton: SC.ButtonView.design({
-              layout: {left:36, top:0, bottom:0, width:36},
+              layout: {left:25, top:0, bottom:0, width:25},
+              classNames: "toolbar-button-small".w(),
               titleMinWidth:0,
-              //controlSize: SC.SMALL_CONTROL_SIZE,
-              //title: "-",
-              icon: static_url('icons/icon-delete-16.png'),
+              controlSize: SC.SMALL_CONTROL_SIZE,
+              title: "-",
+              // icon: static_url('icons/icon-delete-16.png'),
               isEnabledBinding: SC.Binding.bool('ModelEditor.modelDefinitionController.content'),
               action: "removeModel",
               keyEquivalent: "Delete"
@@ -88,8 +89,9 @@ ModelEditor.modelBrowser = SC.Page.design({
         })
       }),
     
-      bottomRightView: SC.ContainerView.design({
+      bottomRightView: SC.ContainerView.design(SC.Border, {
         classNames: 'model-detail-area'.w(),
+        borderStyle: SC.BORDER_GRAY,
         backgroundColor:'white',
         nowShowingBinding: 'ModelEditor.modelDetailView'
       })

@@ -13,3 +13,7 @@
   background-repeat: no-repeat;
 }
 
+.sc-toolbar-view .toolbar-button-small {
+  border-right: 1px solid gray;
+}
+
