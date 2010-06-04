@@ -24,16 +24,18 @@ ModelEditor.main = function main() {
 
   // TODO: Set the content property on your primary controller
   // ex: ModelEditor.contactsController.set('content',ModelEditor.contacts);
-  if(window.self !== window.top) {
-    // We're embedded in an iframe, and should wait for 
-    // the parent page to set the datastore url configs
-    // and invoke the ModelEditor.mainDataLoad();
-  }
-  else {
-    // We're running in standalone development mode!
-    ModelEditor.mainDataLoad('/projects', '1');
-  }
+  // if(window.self !== window.top) {
+  //     // We're embedded in an iframe, and should wait for 
+  //     // the parent page to set the datastore url configs
+  //     // and invoke the ModelEditor.mainDataLoad();
+  //   }
+  //   else {
+  //     // We're running in standalone mode!
+  //     ModelEditor.mainDataLoad('/projects', '1');
+  //   }
   
+  SC.routes.add(':project_url/:project_id', ModelEditor, 'mainRouteHandler');
+  ModelEditor.makeFirstResponder(ModelEditor.START);
   
   //ModelEditor.propertyPaletteController.set('content', ModelEditor.BasicPropertyTypes);
 

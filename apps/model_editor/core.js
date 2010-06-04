@@ -66,5 +66,15 @@ ModelEditor = SC.Application.create(
     SC.Logger.info('changesShouldBeDiscarded');
     ModelEditor.get('store').discardChanges();
     return YES;
+  },
+  
+  
+  // ROUTES
+  mainRouteHandler: function(args) {
+    SC.Logger.info(arguments);
+    ModelEditor.makeFirstResponder(ModelEditor.START);
+    ModelEditor.yogoConfig.set('baseURL', args.project_url);
+    ModelEditor.yogoConfig.set('projectId', args.project_id);
+    ModelEditor.sendAction('dataShouldBeReloaded');
   }
 }) ;
