@@ -30,15 +30,20 @@ ModelEditor.START = SC.Responder.create(
     ModelEditor.set('currentScene', null);
   },
   
+  
   // ..........................................................
   // EVENTS
   //
   
   // add event handlers here
   modelsDidChange: function() {
-    if(ModelEditor.getPath('models.status') & SC.Record.READY) {
-      console.log('switching to READY STATE');
+    var status = ModelEditor.getPath('models.status');
+    if(status & SC.Record.READY) {
       ModelEditor.makeFirstResponder(ModelEditor.READY);
+      return YES;
+    }
+    else if(status & SC.Record.ERROR) {
+      ModelEditor.makeFirstResponder(ModelEditor.ERROR);
       return YES;
     }
     return NO;
