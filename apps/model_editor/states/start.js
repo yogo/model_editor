@@ -22,7 +22,6 @@ ModelEditor.START = SC.Responder.create(
   didBecomeFirstResponder: function() {
     SC.Logger.info("-> START");
     ModelEditor.set('currentScene', 'modelsLoading');
-    ModelEditor.sendAction('dataShouldBeReloaded');
   },
   
   willLoseFirstResponder: function() {
