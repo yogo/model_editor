@@ -42,6 +42,20 @@ ModelEditor.mainPage = SC.Page.design({
       isIndeterminate: YES,
       isRunning: YES
     })
+  }),
+  
+  errorLoading: SC.View.design({
+    childViews: "labelView".w(),
+    
+    labelView: SC.LabelView.design({
+      layout: { centerX:0, centerY:0, height:100, width:300 },
+      textAlign: SC.ALIGN_CENTER,
+      controlSize: SC.HUGE_CONTROL_SIZE,
+      //classNames: "center-label",
+      controlSize: SC.LARGE_CONTROL_SIZE,
+      fontWeight: SC.BOLD_WEIGHT,
+      value: 'Could not load Models!'
+    })
   })
   
   
