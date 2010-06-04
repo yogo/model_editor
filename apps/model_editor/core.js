@@ -31,16 +31,15 @@ ModelEditor = SC.Application.create(
   }.property('coreStore').cacheable(),
   
   models: function(){
-    //if(!this.get('yogoConfig.modelsURL')) return null;
     return this.get('store').find(ModelEditor.MODELS_QUERY);
-  }.property('store','yogoConfig.modelsURL').cacheable(),
+  }.property('store','yogoConfig*modelsURL').cacheable(),
   
   // TODO: Add global constants or singleton objects needed by your app here.
   yogoConfig: SC.Object.create({
     baseURL: null,
     projectId: null,
     modelsURL: function() {
-      if(!this.get('baseURL') || !this.get('projectId')) return null;
+      if(!this.get('baseURL') || !this.get('projectId')) return '';
       return this.get('baseURL') + '/' + this.get('projectId') + '/yogo_models'
     }.property('baseURL', 'projectId').cacheable(),
   }),
@@ -48,8 +47,9 @@ ModelEditor = SC.Application.create(
   currentScene: null,
   modelDetailView: null,
   
+  // EVENTS
   dataShouldBeReloaded: function() {
-    this.get('store').reset();
+    //this.get('store').reset();
     this.get('models').refresh();
     return YES;
   },
