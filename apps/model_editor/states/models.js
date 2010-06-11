@@ -52,6 +52,39 @@ ModelEditor.MODELS = SC.Responder.create(
       return YES;
     }
     return NO;
-  }
+  },
+  
+  showPropertyPalette: function(sender, args) {
+    SC.PickerPane.create({
+      layout: { width:200, height:300 },
+      contentView: ModelEditor.PropertyPalette,
+    }).popup(sender /*, SC.PICKER_POINTER, [3,0,1,2,3]*/);
+    return YES;
+  },
+  
+  addPropertyMenu: function(sender, args) {
+    var menu = SC.MenuPane.create({
+      layout:{width:150, height:300},
+      items: ModelEditor.BasicPropertyConfig.get('propertyList'),
+      itemIconKey: "icon",
+      itemValueKey: "type",
+      itemTitleKey: "type",
+      itemActionKey: "action"
+    });
+    menu.popup(sender, SC.PICKER_POINTER);
+    menu.becomeFirstResponder();
+    return YES;
+  },
+  
+  addProperty: function(sender) {
+    ModelEditor.modelPropertiesController.addProperty(sender, sender.getPath('content'));
+    return YES;
+  },
+  
+  removeProperty: function(sender) {
+    ModelEditor.modelPropertiesController.deleteProperty();
+    return YES;
+  },
+  
   
 }) ;
