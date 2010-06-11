@@ -69,6 +69,25 @@ ModelEditor = SC.Application.create(
     return YES;
   },
   
+  editingShouldBeFinished: function() {
+    SC.AlertPane.warn("Quit Model Editor?", 
+        "Any unsaved changes will be lost!", 
+        null, 
+        "Quit without Saving", 
+        "Continue Editing",
+        null,
+        null,
+        SC.Object.create({
+          alertPaneDidDismiss: function(pane, status) {
+            SC.Logger.info(arguments);
+
+            if(status === SC.BUTTON1_STATUS) {
+              window.location = ModelEditor.yogoConfig.fromUrl;
+            }
+          }
+        }));
+  },
+  
   
   // ROUTES
   mainRouteHandler: function(args) {
@@ -76,6 +95,7 @@ ModelEditor = SC.Application.create(
     ModelEditor.makeFirstResponder(ModelEditor.START);
     ModelEditor.yogoConfig.set('baseURL', args.project_url);
     ModelEditor.yogoConfig.set('projectId', args.project_id);
+    ModelEditor.yogoConfig.set('fromUrl', args.from || "../");
     ModelEditor.sendAction('dataShouldBeReloaded');
   }
 }) ;
