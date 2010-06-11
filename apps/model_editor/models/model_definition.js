@@ -13,7 +13,8 @@
 */
 ModelEditor.ModelDefinition = SC.Record.extend(
 /** @scope ModelEditor.ModelDefinition.prototype */ {
-  //childRecordNamespace: ModelEditor,
+  primaryKey: 'guid',
+  // childRecordNamespace: ModelEditor,
   
   properties: SC.Record.toMany("ModelEditor.ModelProperty", {nested: YES}),
   
