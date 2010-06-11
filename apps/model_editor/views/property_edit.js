@@ -17,33 +17,28 @@ ModelEditor.PropertyEditView = SC.View.extend(
   //previousKeyView: function(){ return this.getPath("parentView.propertyTypeField") }.property(),
   
   
-  // didBecomeKeyResponderFrom: function(sender) {
-  //     this.get('nextKeyView').becomeKeyResponder();
-  //   },
+  acceptsFirstResponder: YES,
+  
+  isEnabledBinding: "ModelEditor.propertyController.content",
+  isEnabledBindingDefault: SC.Binding.bool(),
   
   propertyNameField: SC.TextFieldView.extend({
-    layout: { top:10, left:10, right:10, height:30 },
+    layout: { top:10, left:15, right:15, height:25 },
     valueBinding: "ModelEditor.propertyController.name",
-    nextKeyView: function(){ return this.getPath("parentView.propertyTypeField") }.property(),
-    previousKeyView: function(){ return this.getPath("parentView.propertyTypeField") }.property(),
-    //nextResponder: function() { return this.getPath("parentView.propertyTypeField") }.property()
+    isEnabledBinding: ".parentView.isEnabled"
   }),
   
-  // propertyTypeField: SC.TextFieldView.extend({
-  //     layout: { top:50, left:10, right:10, height:30},
-  //     valueBinding: "ModelEditor.propertyController.propType"
-  //   })
   
-  propertyTypeField: SC.SelectFieldView.extend({
-    layout: {top:50, left:10, right:10, height:30},
+  propertyTypeField: SC.SelectButtonView.extend({
+    layout: {top:40, left:15, right:15},
+    theme: 'capsule',
     valueBinding: "ModelEditor.propertyController.propType",
     objectsBinding: "ModelEditor.BasicPropertyConfig*propertyList",
-    // objectsBindingDefault: SC.Binding.multiple(),
+    isEnabledBinding: ".parentView.isEnabled",
+    iconKey: "icon",
     nameKey: "type",
     valueKey: "type",
-    nextKeyView: function(){ return this.getPath("parentView.propertyNameField") }.property(),
-    previousKeyView: function(){ return this.getPath("parentView.propertyNameField") }.property(),
-    //nextResponder: function() { return this.getPath("parentView.propertyNameField") }.property()
+    checkboxEnabled: YES
     
   })
 
