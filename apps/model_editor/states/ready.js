@@ -37,17 +37,6 @@ ModelEditor.READY = SC.Responder.create(
   //
   
   
-  keyDown: function(sender, evt) {
-    SC.Logger.info(evt);
-    if(evt.ctrlKey) {
-      if(SC.PRINTABLE_KEYS[evt.keyCode] == "n") {
-        alert("You pressed CTRL-n !");
-        return YES;
-      }
-    }
-    return NO;
-  },
-  
   
   // add event handlers here
   currentModelDidChange: function() {
