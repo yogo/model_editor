@@ -32,9 +32,7 @@ ModelEditor.modelBrowser = SC.Page.design({
         titleMinWidth:15,
         action: 'changesShouldBeSaved',
         keyEquivalent: "ctrl_s",
-        isDefault: YES,
-        isEnabledBinding: "ModelEditor*store.hasChanges",
-        isEnabledBindingDefault: SC.Binding.notEmpty()
+        isDefault: YES
         
       }),
       
