@@ -9,8 +9,35 @@ ModelEditor.propertyEditor = SC.Page.design({
 
   // Add your views here.  Ex:
   
-  // mainView: SC.View.design({
-  //   layout: { top: 0, left: 0, right: 0, height: 0 }
-  // })
+  mainView: SC.View.design({
+    childViews: "titleBar basicEditor optionsBar optionsEditor".w(),
+    
+    titleBar: SC.ToolbarView.design({
+      layout: {height:20},
+      childViews: "titleLabel".w(),
+      
+      titleLabel: SC.LabelView.design({
+        value: "Property"
+      })
+    }),
+    
+    basicEditor: ModelEditor.PropertyEditView.design({
+      layout: {top:20, height:75},
+    }),
+    
+    optionsBar: SC.ToolbarView.design({
+      layout: {top:95, height:20},
+      childViews: "titleLabel".w(),
+      
+      titleLabel: SC.LabelView.design({
+        value: "Options"
+      })
+    }),
+    
+    optionsEditor: SC.View.design({
+      layout: {top:105}
+      
+    })
+  })
 
 });
