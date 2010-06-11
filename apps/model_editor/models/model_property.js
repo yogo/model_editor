@@ -14,7 +14,8 @@
 ModelEditor.PropertyType = SC.Object.extend({
   type: "Text",
   icon:static_url('icons/icon-text-16'),
-  options:{}
+  options:{},
+  action: 'addProperty'
 });
 ModelEditor.BasicPropertyConfig = SC.Object.create({
   "Text":     ModelEditor.PropertyType.create({
