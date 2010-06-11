@@ -42,6 +42,7 @@ ModelEditor = SC.Application.create(
       if(!this.get('baseURL') || !this.get('projectId')) return '';
       return this.get('baseURL') + '/' + this.get('projectId') + '/yogo_models'
     }.property('baseURL', 'projectId').cacheable(),
+    fromUrl: "../"
   }),
   
   currentScene: null,

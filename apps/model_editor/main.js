@@ -37,6 +37,7 @@ ModelEditor.main = function main() {
   //   }
   
   SC.routes.add(':project_url/:project_id', ModelEditor, 'mainRouteHandler');
+  SC.routes.add(':project_url/:project_id&from=:originalLocation', ModelEditor, 'mainRouteHandler');
   ModelEditor.makeFirstResponder(ModelEditor.START);
   
   //ModelEditor.propertyPaletteController.set('content', ModelEditor.BasicPropertyTypes);
