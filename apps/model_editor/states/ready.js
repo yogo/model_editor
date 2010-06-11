@@ -24,6 +24,7 @@ ModelEditor.READY = SC.Responder.create(
     SC.Logger.info("-> READY");
     ModelEditor.set('currentScene', 'ModelEditor.modelBrowser.mainView');
     ModelEditor.set('modelDetailView', 'ModelEditor.modelBrowser.browserWelcomeView');
+    ModelEditor.getPath('mainPage.mainPane').becomeFirstResponder();
   },
   
   willLoseFirstResponder: function() {

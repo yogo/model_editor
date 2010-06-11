@@ -24,7 +24,7 @@ ModelEditor.EDIT = SC.Responder.create(
     SC.Logger.info("-> EDIT");
     ModelEditor.set('currentScene', 'ModelEditor.modelBrowser.mainView');
     ModelEditor.set('modelDetailView', 'ModelEditor.propertyBrowser.mainView');
-    // ModelEditor.set('currentToolbarView', 'ModelEditor.propertyBrowser.propertyToolbar');
+    ModelEditor.getPath('mainPage.mainPane').becomeFirstResponder();
   },
   
   willLoseFirstResponder: function() {
@@ -38,13 +38,6 @@ ModelEditor.EDIT = SC.Responder.create(
   //
   
   
-  showPropertyPalette: function(sender, args) {
-    SC.PickerPane.create({
-      layout: { width:200, height:300 },
-      contentView: ModelEditor.PropertyPalette,
-    }).popup(sender /*, SC.PICKER_POINTER, [3,0,1,2,3]*/);
-    return YES;
-  },
   
   // add event handlers here
   currentModelDidChange: function() {
