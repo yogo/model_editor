@@ -40,7 +40,7 @@ ModelEditor.modelDefinitionController = SC.ObjectController.create(
     SC.Logger.debug(modelDef);
     SC.Logger.debug("showing alert pane");
     SC.AlertPane.warn("Delete: " + modelDef.get('name') + "?",
-                      "This operation cannot be un-done!", null,
+                      "This operation will be performed immediately, and cannot be un-done!", null,
                       "Delete Model", "Don't Delete", null,
                       this);
   },
@@ -51,6 +51,7 @@ ModelEditor.modelDefinitionController = SC.ObjectController.create(
       SC.Logger.debug("Destroying model: " + modelDef.get('name'));
       this.set('content', null);
       modelDef.destroy();
+      modelDef.commitRecord();
     }
   },
   
