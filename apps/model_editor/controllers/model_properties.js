@@ -106,9 +106,4 @@ ModelEditor.modelPropertiesController = SC.ArrayController.create(
     
     return ret;
   }
-  
-  
-  
-  
-  
 }) ;
