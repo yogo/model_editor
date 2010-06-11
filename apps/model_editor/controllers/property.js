@@ -3,7 +3,7 @@
 // Copyright: ©2010 My Company, Inc.
 // ==========================================================================
 /*globals ModelEditor */
-
+sc_require('controllers/model_properties');
 /** @class
 
   (Document Your Controller Here)
@@ -14,7 +14,6 @@ ModelEditor.propertyController = SC.ObjectController.create(
 /** @scope ModelEditor.propertyController.prototype */ {  
   contentBinding: "ModelEditor.modelPropertiesController.selection",
   contentBindingDefault: SC.Binding.single(),
-  
   
   
   // propType: function(key, value) {
