@@ -46,6 +46,7 @@ ModelEditor.modelDefinitionsController = SC.ArrayController.create(
         guid: modelName.classify(),
         properties: []
       });
+      modelDef.commitRecord();
       
       var senderPane = sender.get('pane');
       senderPane && senderPane.remove();
