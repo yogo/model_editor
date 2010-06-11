@@ -9,40 +9,88 @@ ModelEditor.propertyBrowser = SC.Page.design({
 
   // Add your views here.  Ex:
   
-  mainView: SC.View.design({
-    childViews: "propertyList bottomBar".w(),
+  mainView: SC.SplitView.design({
+    dividerThickness: 1,
+    defaultThickness: 200,
+    autoresizeBehavior: SC.RESIZE_TOP_LEFT,
+    canCollapseViews: NO,
+    acceptsFirstResponder: YES,
     
-    propertyList: SC.ScrollView.design({
-      hasHorizontalScroller: NO,
+    topLeftView: SC.View.design({
+      childViews: "propertyList bottomBar".w(),
     
-      contentView: SC.ListView.design({
-        rowHeight:30,
-        exampleView: ModelEditor.PropertyListItemView,
-        contentBinding: 'ModelEditor.modelPropertiesController.arrangedObjects',
-        selectionBinding: 'ModelEditor.modelPropertiesController.selection',
-        contentValueKey: "name",
-        hasContentIcon: YES,
-        contentIconKey: "displayIcon",
-        canReorderContent: true,
-        canEditContent: YES,
-        isDropTarget: YES,
-        action: "editProperty"
+      propertyList: SC.ScrollView.design({
+        layout:{bottom:25},
+        hasHorizontalScroller: NO,
+    
+        contentView: SC.ListView.design({
+          rowHeight:30,
+          exampleView: ModelEditor.PropertyListItemView,
+          contentBinding: 'ModelEditor.modelPropertiesController.arrangedObjects',
+          selectionBinding: 'ModelEditor.modelPropertiesController.selection',
+          contentValueKey: "name",
+          hasContentIcon: YES,
+          contentIconKey: "displayIcon",
+          canReorderContent: YES,
+          canEditContent: YES,
+          canDeleteContent: YES,
+          isDropTarget: YES,
+          acceptsFirstResponder: YES
+          //action: "editProperty"
+        })
+      }),
+    
+      bottomBar: SC.ToolbarView.design({
+        anchorLocation:SC.ANCHOR_BOTTOM,
+        layout: {height:25},
+        childViews: "addButton removeButton".w(),
+      
+        addButton: SC.ButtonView.design({
+          layout: {left:0, top:0, bottom:0, width:25},
+          classNames: "toolbar-button-small".w(),
+          titleMinWidth:0,
+          controlSize: SC.SMALL_CONTROL_SIZE,
+          title: "+",
+          isEnabledBinding: SC.Binding.bool("ModelEditor.modelDefinitionController.content"),
+          action: "addPropertyMenu",
+          keyEquivalent: "ctrl_p",
+          nextKeyView: SC.outlet('page.mainView.bottomRightView.propertyEditor')
+          
+        }),
+        
+        removeButton: SC.ButtonView.design({
+          layout: {left:25, top:0, bottom:0, width:25},
+          classNames: "toolbar-button-small".w(),
+          titleMinWidth:0,
+          controlSize: SC.SMALL_CONTROL_SIZE,
+          title: "-",
+          // icon: static_url('icons/icon-delete-16.png'),
+          isEnabledBinding: SC.Binding.bool('ModelEditor.modelDefinitionController.content'),
+          action: "removeProperty"
+        }),
       })
     }),
     
-    bottomBar: SC.ToolbarView.design({
-      anchorLocation:SC.ANCHOR_BOTTOM,
-      layout: {height:25},
-      childViews: "addPropertyButton".w(),
+    bottomRightView: SC.View.design({
+      childViews: "propertyEditor bottomBar".w(),
       
-      addPropertyButton: SC.ButtonView.design({
-        layout: {right:25, width:100, centerY:0, height:25},
-        icon: static_url('icons/icon-add-16.png'),
-        title: "Properties",
-        isEnabledBinding: SC.Binding.bool("ModelEditor.modelDefinitionController.content"),
-        action: "showPropertyPalette"
+      backgroundColor: '#C5C8D7',
+      
+      propertyEditor: SC.ScrollView.design({
+        layout: {bottom:25},
+        contentViewBinding: 'ModelEditor.propertyEditor.mainView'
+      }),
+      
+      bottomBar: SC.ToolbarView.design({
+        layout: {height:25},
+        anchorLocation: SC.ANCHOR_BOTTOM,
+        childViews: "resizeThumb".w(),
+      
+        resizeThumb: SC.ThumbView.design({
+          layout: {left:0, width:25, centerY:0, height:25},
+          classNames: 'thumb-view'.w()
+        })
       })
     })
   })
-  
 });
