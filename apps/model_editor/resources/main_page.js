@@ -17,7 +17,8 @@ ModelEditor.mainPage = SC.Page.design({
     
     mainView: SC.ContainerView.design({
       // layout: {left:0, right:0, top:40, bottom:0},
-      nowShowingBinding: 'ModelEditor.currentScene'
+      nowShowingBinding: 'ModelEditor.currentScene',
+      acceptsFirstResponder: YES,
     }),
   }),
     
