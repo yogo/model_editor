@@ -31,8 +31,8 @@ ModelEditor = SC.Application.create(
   }.property('coreStore').cacheable(),
   
   models: function(){
-    return this.get('store').find(ModelEditor.MODELS_QUERY);
-  }.property('store','yogoConfig*modelsURL').cacheable(),
+    return this.get('store').find(ModelEditor.ModelDefinition);
+  }.property('store', 'yogoConfig*modelsURL').cacheable(),
   
   // TODO: Add global constants or singleton objects needed by your app here.
   yogoConfig: SC.Object.create({
