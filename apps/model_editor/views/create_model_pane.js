@@ -12,30 +12,38 @@
 */
 ModelEditor.CreateModelPane = SC.PanelPane.extend(
 /** @scope ModelEditor.CreateModelPane.prototype */ {
-
+  
+  
   contentView: SC.View.extend({    
     childViews: 'modelNameLabel modelNameField cancelButton createButton'.w(),
     
     modelNameLabel: SC.LabelView.extend({
       layout: {left:10, top:10, width:90, height:20},
-      value: "Model Name"
+      value: "Model Name",
     }),
     modelNameField: SC.TextFieldView.extend({
       layout: {left:105, top:10, right:10, height:20},
-      valueBinding: "ModelEditor.modelDefinitionsController.newModelName"
+      valueBinding: "ModelEditor.modelDefinitionsController.newModelName",
+      nextKeyView: function(){ return this.getPath('parentView.cancelButton')}.property()
     }),
     createButton: SC.ButtonView.extend({
       layout: {right:10, top:40, width:100},
       title: "Create Model",
       isEnabledBinding: SC.Binding.from("ModelEditor.modelDefinitionsController.newModelName").bool(),
       target: "ModelEditor.modelDefinitionsController",
-      action: "createModel"
+      action: "createModel",
+      isDefault: YES,
+      nextKeyView: function(){ return this.getPath('parentView.cancelButton')}.property()
+      
     }),
     cancelButton: SC.ButtonView.extend({
       layout: {right:120, top:40, width:75},
       title: "Cancel",
       target: "ModelEditor.modelDefinitionsController",
-      action: "cancelCreateModel"
+      action: "cancelCreateModel",
+      isCancel: YES,
+      nextKeyView: function(){ return this.getPath('parentView.modelNameField')}.property()
+      
     })
   })
 
