@@ -26,7 +26,9 @@ ModelEditor.ModelDataSource = SC.DataSource.extend(
     var modelsUrl = ModelEditor.getPath('yogoConfig.modelsURL');
     if(!modelsUrl) return NO;
     
-    if(query === ModelEditor.MODELS_QUERY) {
+    var recordType = query.get('recordType');
+    
+    if(recordType === ModelEditor.ModelDefinition) {
       var request = SC.Request.getUrl(modelsUrl)
         .notify(this, 'didFetchModels', store, query);
       request.header('Accept', "application/json");
