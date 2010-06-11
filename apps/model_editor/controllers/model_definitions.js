@@ -11,6 +11,7 @@
   @extends SC.ArrayController
 */
 ModelEditor.modelDefinitionsController = SC.ArrayController.create(
+  SC.CollectionViewDelegate,
 /** @scope ModelEditor.modelDefinitionsController.prototype */ {
   
   contentBinding: "ModelEditor*models",
@@ -58,6 +59,10 @@ ModelEditor.modelDefinitionsController = SC.ArrayController.create(
     var senderPane = sender.get('pane');
     senderPane && senderPane.remove();
     this.set('newModelName', "");
+  },
+  
+  collectionViewDeleteContent: function(colView, content, indexes) {
+    ModelEditor.modelDefinitionController.deleteModel();
   }
 
 }) ;
