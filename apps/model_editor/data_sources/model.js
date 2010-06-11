@@ -5,9 +5,7 @@
 /*globals ModelEditor */
 
 sc_require('models/model_definition');
-ModelEditor.MODELS_QUERY = SC.Query.local(ModelEditor.ModelDefinition, {
-  orderBy: 'name'
-});
+
 
 /** @class
 
