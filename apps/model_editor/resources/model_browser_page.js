@@ -12,16 +12,30 @@ ModelEditor.modelBrowser = SC.Page.design({
     childViews: "topBar splitBrowser".w(),
     
     topBar: SC.ToolbarView.design({
-      childViews: 'saveButton'.w(),
+      childViews: 'finishEditingButton saveButton'.w(),
       layout: { top:0, left:0, right:0, height:40 },
       anchorLocation: SC.ANCHOR_TOP,
       
+      finishEditingButton: SC.ButtonView.design({
+        layout: {right:10, width:140, centerY:0, height:25},
+        icon: static_url('icons/icon-folder_go-16.png'),
+        title:"Quit Editing",
+        titleMinWidth:15,
+        action: 'editingShouldBeFinished',
+        keyEquivalent: "ctrl_q"
+      }),
+      
       saveButton: SC.ButtonView.design({
         layout: {left:10, width:140, centerY:0, height:25},
-        icon: static_url('icons/icon-folder_go-16.png'),
-        title:"Save Models",
+        icon: static_url('icons/icon-database_save-16.png'),
+        title:"Save Changes",
         titleMinWidth:15,
-        action: 'changesShouldBeSaved'
+        action: 'changesShouldBeSaved',
+        keyEquivalent: "ctrl_s",
+        isDefault: YES,
+        isEnabledBinding: "ModelEditor*store.hasChanges",
+        isEnabledBindingDefault: SC.Binding.notEmpty()
+        
       }),
       
     }),
@@ -30,69 +44,69 @@ ModelEditor.modelBrowser = SC.Page.design({
       layout:{top:40},
       defaultThickness: 150,
       dividerThickness: 1,
-      thumbViews: ['topLeftView.contentView.bottomBar.resizeThumb'],
-      nextKeyView: 'mainView.topLeftView.contentView.modelListView',
-    
-      topLeftView: SC.ScrollView.design({
-        hasHorizontalScroller: NO,
+      canCollapseViews: NO,
+      acceptsFirstResponder: YES,
       
-        contentView: SC.View.design({
-          childViews: "modelListView bottomBar".w(),
+      topLeftView: SC.View.design({
+        childViews: "modelListView bottomBar".w(),
+        layout: {minWidth:100},
         
-          modelListView: SC.SourceListView.design({
+        modelListView: SC.ScrollView.design({
+          hasHorizontalScroller: NO,
+          
+          contentView: SC.SourceListView.design({
             layout:{bottom:25},
-            nextKeyView: 'mainView.bottomRightView.contentView',
             exampleView: ModelEditor.PatchedListItemView,
             rowHeight: 25,
             contentBinding: "ModelEditor.modelDefinitionsController.arrangedObjects",
             selectionBinding: "ModelEditor.modelDefinitionsController.selection",
             contentValueKey: "name",
             canEditContent: NO,
+            canDeleteContent: YES,
             hasContentIcon: YES,
             contentIconKey: "icon",
-            contentUnreadCountKey: "propertyCount"
+            contentUnreadCountKey: "propertyCount",
+            acceptsFirstResponder: YES
+          })
+        }),
+        
+        bottomBar: SC.ToolbarView.design({
+          layout: {height:25},
+          anchorLocation: SC.ANCHOR_BOTTOM,
+          childViews: "addButton removeButton resizeThumb".w(),
+        
+          addButton: SC.ButtonView.design({
+            layout: {left:0, top:0, bottom:0, width:25},
+            classNames: "toolbar-button-small".w(),
+            titleMinWidth:0,
+            controlSize: SC.SMALL_CONTROL_SIZE,
+            title: "+",
+            //icon: static_url('icons/icon-add-16.png'),
+            action: "addModel",
+            keyEquivalent: "ctrl_n"
           }),
         
-          bottomBar: SC.ToolbarView.design({
-            layout: {height:25},
-            anchorLocation: SC.ANCHOR_BOTTOM,
-            childViews: "addButton removeButton resizeThumb".w(),
-          
-            addButton: SC.ButtonView.design({
-              layout: {left:0, top:0, bottom:0, width:25},
-              classNames: "toolbar-button-small".w(),
-              titleMinWidth:0,
-              controlSize: SC.SMALL_CONTROL_SIZE,
-              title: "+",
-              //icon: static_url('icons/icon-add-16.png'),
-              action: "addModel",
-              keyEquivalent: "CTRL+n"
-            }),
-          
-            removeButton: SC.ButtonView.design({
-              layout: {left:25, top:0, bottom:0, width:25},
-              classNames: "toolbar-button-small".w(),
-              titleMinWidth:0,
-              controlSize: SC.SMALL_CONTROL_SIZE,
-              title: "-",
-              // icon: static_url('icons/icon-delete-16.png'),
-              isEnabledBinding: SC.Binding.bool('ModelEditor.modelDefinitionController.content'),
-              action: "removeModel",
-              keyEquivalent: "Delete"
-            }),
-          
-            resizeThumb: SC.ThumbView.design({
-              layout: {right:0, width:25, centerY:0, height:25},
-              classNames: 'thumb-view'.w()
-            })
+          removeButton: SC.ButtonView.design({
+            layout: {left:25, top:0, bottom:0, width:25},
+            classNames: "toolbar-button-small".w(),
+            titleMinWidth:0,
+            controlSize: SC.SMALL_CONTROL_SIZE,
+            title: "-",
+            // icon: static_url('icons/icon-delete-16.png'),
+            isEnabledBinding: SC.Binding.bool('ModelEditor.modelDefinitionController.content'),
+            action: "removeModel",
+          }),
+        
+          resizeThumb: SC.ThumbView.design({
+            layout: {right:0, width:25, centerY:0, height:25},
+            classNames: 'thumb-view'.w()
           })
         })
       }),
     
-      bottomRightView: SC.ContainerView.design(SC.Border, {
+      bottomRightView: SC.ContainerView.design({
         classNames: 'model-detail-area'.w(),
-        borderStyle: SC.BORDER_GRAY,
-        backgroundColor:'white',
+        layout: {minWidth:150},
         nowShowingBinding: 'ModelEditor.modelDetailView'
       })
     })
@@ -101,6 +115,8 @@ ModelEditor.modelBrowser = SC.Page.design({
   browserWelcomeView: SC.View.design({
     childViews: "selectModelText selectModelArrow createModelText createModelArrow".w(),
     classNames: "browse-welcome-view".w(),
+    
+    backgroundColor: 'white',
     
     selectModelText: SC.LabelView.design({
       layout: { width:200, height:50, left:180, top:20},
