@@ -12,6 +12,8 @@
 // See comments for some pointers on what to do next.
 //
 ModelEditor.main = function main() {
+  
+  SC.CAPTURE_BACKSPACE_KEY = YES;
 
   // Step 1: Instantiate Your Views
   // The default code here will make the mainPane for your application visible
