@@ -30,9 +30,10 @@ ModelEditor.modelPropertiesController = SC.ArrayController.create(
     return this;
   },
   
-  addProperty: function(sender) {
+  addProperty: function(sender, args) {
     SC.Logger.debug("adding Property!");
-    this.addObject({type:"Text", name:"New Property"});
+    var type = (args.type || "Text");
+    this.addObject({type:type, name:"New "+ type +" Property"});
   },
   
   deleteProperty: function(sender) {
