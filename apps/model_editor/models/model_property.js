@@ -91,8 +91,8 @@ ModelEditor.ModelPropertyOptions = SC.ChildRecord.extend({
 
 ModelEditor.ModelProperty = SC.ChildRecord.extend(
 /** @scope ModelEditor.ModelProperty.prototype */   {
-    childRecordNamespace: ModelEditor,
-    
+    // childRecordNamespace: ModelEditor,
+    primaryKey: 'guid',
     name: SC.Record.attr(String, {isRequired: YES}),
     
     options: SC.ChildRecord.toOne("ModelEditor.ModelPropertyOptions", {nested: true}),
